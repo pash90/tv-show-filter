@@ -8,22 +8,11 @@ import { queryHandler } from './helpers';
 const app = express();
 
 app.use(
-	express.json({
-		verify: (request, response, buffer, encoding) => {
-			try {
-				JSON.parse(buffer.toString());
-			} catch (err) {
-				response.statusCode = 400;
-				response.setHeader('ContentType', 'application/json');
-				response.write(
-					JSON.stringify({
-						error: 'Could not decode request: JSON parsing failed'
-					})
-				);
-			}
-		}
+	express.urlencoded({
+		extended: false
 	})
 );
+// app.use(express.json());
 
 app.post('/', queryHandler);
 
