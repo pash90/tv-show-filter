@@ -7,19 +7,20 @@ import { FilterRequest, TVShow } from '../types';
 
 export const queryHandler = (request: Request, response: Response) => {
 	const { payload } = request.body as FilterRequest;
-	let formattedPayload;
 
-	// Check if JSON is valid or not
-	try {
-		formattedPayload = JSON.parse(JSON.stringify(payload));
-	} catch (error) {
-		response.status(400).send({
-			error: 'Could not decode request: JSON parsing failed'
+	// Ensure content type is set properly
+	response.contentType('json');
+
+	// Check if there is any data
+	if (!payload) {
+		response.statusCode = 400;
+		response.send({
+			error: 'No data provided in the request: JSON parsing failed'
 		});
 	}
 
-	// Now we know payload is formatted and usable properly
-	const filteredTVShows = (formattedPayload as TVShow[]).filter(showIsValid);
+	// Now we know payload is not empty, is formatted and properly usable
+	const filteredTVShows = (payload as TVShow[]).filter(showIsValid);
 
 	// We have the list of shows that are valid
 	const formattedTVShows = filteredTVShows.map(show => {
@@ -37,7 +38,8 @@ export const queryHandler = (request: Request, response: Response) => {
 		};
 	});
 
-	response.status(200).send({
+	response.statusCode = 200;
+	response.send({
 		response: formattedTVShows
 	});
 };

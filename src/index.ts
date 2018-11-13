@@ -1,6 +1,5 @@
 /** Libraries */
 import express from 'express';
-import bodyParser from 'body-parser';
 
 /** Helpers */
 import { queryHandler } from './helpers';
@@ -8,8 +7,26 @@ import { queryHandler } from './helpers';
 /** Initialisation */
 const app = express();
 
-app.use(bodyParser.json());
+app.use(
+	express.json({
+		verify: (request, response, buffer, encoding) => {
+			try {
+				JSON.parse(buffer.toString());
+			} catch (err) {
+				response.statusCode = 400;
+				response.setHeader('ContentType', 'application/json');
+				response.write(
+					JSON.stringify({
+						error: 'Could not decode request: JSON parsing failed'
+					})
+				);
+			}
+		}
+	})
+);
 
 app.post('/', queryHandler);
 
-app.listen(9000, () => console.log('Running server at http://localhost:9000'));
+app.listen(9000);
+
+export default app; // for testing
