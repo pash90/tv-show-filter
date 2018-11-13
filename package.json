@@ -1,0 +1,47 @@
+{
+	"name": "tv-show-filter",
+	"version": "1.0.0",
+	"description": "9Digital's Coding Challenge",
+	"main": "src/index.ts",
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"express": "^4.16.4"
+	},
+	"devDependencies": {
+		"@types/express": "^4.16.0",
+		"@babel/cli": "^7.1.2",
+		"@babel/core": "^7.1.2",
+		"@babel/plugin-proposal-class-properties": "^7.1.0",
+		"@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+		"@babel/preset-env": "^7.1.0",
+		"@babel/preset-typescript": "^7.1.0",
+		"typescript": "^3.1.5"
+	},
+	"scripts": {
+		"type-check": "tsc --noEmit",
+		"build": "npm run build:types && npm run build:js",
+		"build:types": "tsc --emitDeclarationOnly",
+		"build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
+		"start": "npm run build && node dist/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pash90/tv-show-filter.git"
+	},
+	"author": "Parth Mehta",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/pash90/tv-show-filter/issues"
+	},
+	"homepage": "https://github.com/pash90/tv-show-filter#readme",
+	"babel": {
+		"presets": [
+			"@babel/env",
+			"@babel/typescript"
+		],
+		"plugins": [
+			"@babel/proposal-class-properties",
+			"@babel/proposal-object-rest-spread"
+		]
+	}
+}
