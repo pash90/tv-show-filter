@@ -16,11 +16,9 @@ export interface TVShow {
 		url: string;
 	};
 	primaryColour?: string;
-	seasons?: [
-		{
-			slug: string;
-		}
-	];
+	seasons?: {
+		slug: string;
+	}[];
 	slug: string;
 	title: string;
 	tvChannel: string;
