@@ -27,6 +27,6 @@ app.use(
 
 app.post('/', queryHandler);
 
-app.listen(9000);
+app.listen(process.env.PORT || 3000);
 
 export default app; // for testing
