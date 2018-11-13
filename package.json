@@ -14,9 +14,12 @@
 		"@babel/plugin-proposal-object-rest-spread": "^7.0.0",
 		"@babel/preset-env": "^7.1.0",
 		"@babel/preset-typescript": "^7.1.0",
+		"@types/chai": "^4.1.7",
 		"@types/express": "^4.16.0",
+		"@types/mocha": "^5.2.5",
 		"chai": "*",
 		"mocha": "*",
+		"ts-node": "^7.0.1",
 		"typescript": "^3.1.5"
 	},
 	"scripts": {
@@ -24,7 +27,8 @@
 		"build": "npm run build:types && npm run build:js",
 		"build:types": "tsc --emitDeclarationOnly",
 		"build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
-		"start": "npm run build && node dist/index.js"
+		"start": "npm run build && node dist/index.js",
+		"test": "./node_modules/mocha/bin/mocha --require ts-node/register --recursive './src/test/*'"
 	},
 	"repository": {
 		"type": "git",
